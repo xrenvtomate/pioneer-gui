@@ -8,25 +8,30 @@ body {
     background-color: #eee;
     margin-bottom: 10px;
 }
+ul {
+    list-style-type: none;
+}
 
-#navbar ul {
+#navbar .dropdown {
     display: none;
     position: absolute;
     top: 100%;
     background-color: #c0c0c0;
-
-    list-style-type: none;
+    
     margin: 0;
     padding: 0;
 }
 
-#navbar div:hover ul {
+#navbar div:hover .dropdown {
+/* #navbar div .dropdown { */
     display: block;
     box-shadow: #3334 0 5px 5px;
 }
 
 .open-list {
     display: inline-block;
+    position: relative;
+    top: -1px;
     padding: 0 10px;
     height: 100%;
     cursor: pointer;
@@ -34,12 +39,23 @@ body {
     font-size: 14px;
 }
 
+.drop_button:hover {
+    border: 1px solid #000;
+}
+
+
+.btn-connect {
+    background-color: rgb(100, 194, 130);
+    border-radius: 5px;
+    font-size: 10px;
+    margin-left: 10px;
+    padding: 0 10px;
+}
+
 
 #navbar div {
     height: 100%;
 }
-
-
 
 #navbar li a {
     padding: 6px;
@@ -53,10 +69,10 @@ body {
 
 
 .rectangle {
-    border: 1px solid #333;
+    /* border: 1px solid #333; */
     width: 500px;
     height: 400px;
-    background-color: #fff;
+    background-color: #eee;
 }
 
 .content {
@@ -71,7 +87,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+    box-shadow: #3332 0 0 20px;
 }
 
 .function-btn {
@@ -81,6 +97,7 @@ body {
     font-size: 20px;
     background-color: #fff;
     border-radius: 10px;
+    box-shadow: #3332 0 0 10px;
 }
 
 .drone-state {

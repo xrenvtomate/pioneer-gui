@@ -3,7 +3,7 @@ const { app, BrowserWindow } = require('electron')
 
 const createWindow = () => {
     const win = new BrowserWindow({
-      width: 800,
+      width: 1200,
       height: 600,
       // webPreferences: {
       //   // Set the CSP header here
