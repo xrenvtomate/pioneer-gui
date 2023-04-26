@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from wifis import wifi_list
+
 app = FastAPI()
 
 app.add_middleware(
@@ -25,10 +27,4 @@ def read_root():
 
 @app.get("/list/")
 def read_root():
-    return [
-        "wifi 1",
-        "wifi 2",
-        "wifi 3",
-        "wifi 4",
-        "wifi 5",
-    ]
+    return wifi_list()
