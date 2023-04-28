@@ -17,10 +17,18 @@
     <nav id="navbar">
       <div class="container">
         <span class="open-list" >Добавить коптер</span>
-        <ul>
-          <li><a href="#">В качестве клиента</a></li>
-
-          <li><a href="#">В качестве хоста</a></li>
+        <ul class="dropdown">
+          <li class="drop_button"><a href="#">В качестве хоста</a></li>
+          <li class="drop_button">
+            <a href="#" id="client-btn">В качестве клиента</a>
+            <div>
+              <ul id="list-client">
+                <li>adfa</li>
+                <li>awgg</li>
+                <li>adfa</li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
@@ -29,13 +37,12 @@
         <div class="col-6">
           <div class="rectangle">
             <canvas id="myPics" width="500" height="400"></canvas>
-            <script src="../static/from_a.js"></script>
+            <script src="from_a.js"></script>
           </div>
         </div>
         <div class="col-3">
           <div class="drone-state">some info about a drone</div>
         </div>
-
         <div class="col-3">
           <div class="functions">
             <button class="function-btn">button 1</button>
@@ -45,6 +52,7 @@
         </div>
       </div>
     </div>
+    <script src="../static/ui_controls.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </body>
 </html>
