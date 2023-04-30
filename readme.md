@@ -6,23 +6,23 @@ clone repo
 git clone https://github.com/xrenvtomate/pioneer-gui
 ```
 
-then 
+### install fontend dependencies
 ```bash
 cd client
 npm i
 ```
-to install dependencies
+### start frontend
 ```bash
 npm start
 ```
-to start frontend
 
+### install backend dependencies
 ```bash
-cd ../api
+cd api
 pip install flask uvicorn
 ```
 
+### start backend
 ```bash
 uvicorn main:app --reload 
 ```
-to start backend
