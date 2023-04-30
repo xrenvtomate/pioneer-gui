@@ -23,5 +23,5 @@ def list_wifis():
 def connect_handler(data: dict):
     ssid = data['ssid']
     password = '228228228'
-    connect(ssid, password)
-    return {'message': 'Data received'}
+    # connect(ssid, password)
+    return {'res': 'success'}
