@@ -21,7 +21,6 @@ def list_wifis():
 
 @app.post('/connect')
 def connect_handler(data: dict):
-    print(data)
     ssid = data['ssid']
     password = '228228228'
     connect(ssid, password)
