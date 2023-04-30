@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from wifis import wifi_list
+from wifis import wifi_list, connect
 
 app = FastAPI()
 
@@ -13,18 +13,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    with open('data.txt', 'r') as f:
-        n = int(f.read())
-    n += 1
-    print(123)
-
-    with open('data.txt', 'w') as f:
-        f.write(str(n))
-
-    return {"message": f"hello {n}"}
 
 @app.get("/list/")
-def read_root():
+def list_wifis():
     return wifi_list()
+
+
+@app.post('/connect')
+def connect_handler(data: dict):
+    print(data)
+    ssid = data['ssid']
+    password = '228228228'
+    connect(ssid, password)
+    return {'message': 'Data received'}

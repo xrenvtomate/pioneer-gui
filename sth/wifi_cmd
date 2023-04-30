@@ -47,8 +47,8 @@ def displayAvailableNetworks():
 displayAvailableNetworks()
  
 # input wifi name and password
-name = input("Name of Wi-Fi: ")
-password = input("Password: ")
+name = 'bebra123'
+password = '228228228'
  
 # establish new connection
 createNewConnection(name, name, password)
