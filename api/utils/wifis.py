@@ -1,5 +1,6 @@
 import subprocess
 import os
+import requests
 
 
 def wifi_list():
@@ -59,4 +60,22 @@ def check_connection(ssid):
         return True
     return False
 
-# print(check_connection('bebra123'))
+def get_password(ssid):
+    output = subprocess.check_output(['netsh', 'wlan', 'show', 'profile', 'bebra123', 'key=clear']).decode('cp1252', errors='ignore')
+    return output.split('\n')[-12].split()[-1]
+
+
+def connect_drone_to_wifi(drone_ssid, ssid):
+    create_profile(drone_ssid, '12345678')
+    connect(drone_ssid)
+    password = get_password(ssid)
+
+    response = requests.post('http://192.168.4.1/', params={
+        'function': 'wifi',
+        'command': 'connect',
+        'ssid': ssid,
+        'password': password
+    }).json()
+    if response['success'] != 'true':
+        return False
+    return '.'.join(response['wifi_sta_ip'])
