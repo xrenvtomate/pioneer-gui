@@ -1,6 +1,31 @@
 const con_list_btn = document.getElementById("client-btn");
 const con_list = document.getElementById("list-client");
+var result;
+
+const disconnection_btn = document.getElementById("disconnect-btn");
+const motorOn_btn = document.getElementById("motorOn-btn");
+
 con_list.style.display = "none";
+
+disconnection_btn.addEventListener("click", async () => {
+  const data = {object: window.result.object}
+  const response = await fetch('http://localhost:8000/disconnect', {
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+
+})
+
+motorOn_btn.addEventListener("click", async () =>{
+  const data = {object: window.result.object}
+  const response = await fetch('http://localhost:8000/disconnect', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+})
 
 con_list_btn.addEventListener("click", async () => {
   if (con_list.style.display === "none") {
@@ -34,8 +59,8 @@ con_list_btn.addEventListener("click", async () => {
           },
           body: JSON.stringify(data)
         });
-        const result = await response.json();
-        generateAlert('success', 'ура ура ура')
+        window.result = await response.json();
+        generateAlert('success', 'ура ура ура');
         console.log(result);
       });
     });
