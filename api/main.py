@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from wifis import wifi_list, connect
+from wifis import wifi_list, connect, check_connection
 
 app = FastAPI()
 
@@ -19,9 +19,8 @@ def list_wifis():
     return wifi_list()
 
 
-@app.post('/connect')
+@app.post('/connect_host')
 def connect_handler(data: dict):
     ssid = data['ssid']
-    password = '228228228'
-    # connect(ssid, password)
+    connect(ssid)
     return {'res': 'success'}

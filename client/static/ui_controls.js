@@ -1,16 +1,12 @@
-const con_list_btn = document.getElementById("client-btn");
-const con_list = document.getElementById("list-client");
+const host_list_btn = document.getElementById("host-btn");
+const con_list = document.getElementById("list-host");
 con_list.style.display = "none";
 
-con_list_btn.addEventListener("click", async () => {
+host_list_btn.addEventListener("click", async () => {
   if (con_list.style.display === "none") {
     const response = await fetch("http://127.0.0.1:8000/list/");
     const items = await response.json();
-    // console.log(items)
     con_list.innerHTML = "";
-    // Create a <ul> element and add it to the page
-
-    // Iterate over the items and add <li> elements to the <ul>
     con_list.style.display = "block";
     items.forEach((wifi_name) => {
       connect_btn = document.createElement("button");
@@ -27,7 +23,7 @@ con_list_btn.addEventListener("click", async () => {
 
       connect_btn.addEventListener('click', async () => {
         const data = {ssid: wifi_name};
-        const response = await fetch('http://localhost:8000/connect', {
+        const response = await fetch('http://localhost:8000/connect_host', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -35,14 +31,25 @@ con_list_btn.addEventListener("click", async () => {
           body: JSON.stringify(data)
         });
         const result = await response.json();
-        generateAlert('success', 'ура ура ура')
-        console.log(result);
+        generateAlert('success', 'connected');
+        // if (result.res === 'success') {
+        //   generateAlert('success', 'connected successfully')
+        // }
+        // else {
+        //   generateAlert('danger', 'connection faled')
+        // }
       });
     });
   } else {
     con_list.style.display = "none";
   }
 });
+
+
+
+
+
+
 
 function generateAlert(alertType, message) {
   var alertDiv = document.createElement("div");

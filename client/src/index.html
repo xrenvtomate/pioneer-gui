@@ -20,16 +20,16 @@
 
     <nav id="navbar">
       <div class="container">
-        <span class="open-list" >Добавить коптер</span>
+        <span class="open-list">подключение</span>
         <ul class="dropdown">
-          <li class="drop_button"><a href="#">В качестве хоста</a></li>
           <li class="drop_button">
-            <a href="#" id="client-btn">В качестве клиента</a>
-            <div>
-              <ul id="list-client">
-              </ul>
-            </div>
+            <a href="#" id="client-btn">добавить дрона</a>
           </li>
+
+          <li class="drop_button">
+            <a href="#" id="host-btn">подключиться к хосту</a>
+          </li>
+          <ul id="list-host"></ul>
         </ul>
       </div>
     </nav>
@@ -54,7 +54,6 @@
       </div>
     </div>
 
-    <button onclick="generateAlert('success', 'Your message has been sent successfully.')">Generate Alert</button>
     <script src="../static/ui_controls.js"></script>
     </body>
 </html>

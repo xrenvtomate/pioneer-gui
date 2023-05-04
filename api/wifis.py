@@ -14,8 +14,8 @@ def wifi_list():
     return available_networks
 
 
-def connect(ssid, password):
-    profile_name = f'{ssid}_profile'
+def create_profile(ssid, password):
+    profile_name = ssid
     config = f"""<?xml version=\"1.0\"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
     <name>{profile_name}</name>
@@ -42,10 +42,21 @@ def connect(ssid, password):
     </MSM>
 </WLANProfile>"""
 
-    command = f"netsh wlan add profile filename=\"{ssid}.xml\""
-    with open(ssid+".xml", 'w') as file:
+    command = f"netsh wlan add profile filename=\"profiles\profile.xml\""
+    with open("profiles\profile.xml", 'w') as file:
         file.write(config)
     os.system(command)
 
-    command = f"netsh wlan connect name=\"{profile_name}\" ssid=\"{ssid}\""
+
+def connect(profile):
+    command = f"netsh wlan connect name=\"{profile}\""
     os.system(command)
+
+def check_connection(ssid):
+    output = subprocess.check_output(['netsh', 'wlan', 'show', 'interfaces']).decode('cp1252', errors='replace')
+    print(output)
+    if ssid in output:
+        return True
+    return False
+
+# print(check_connection('bebra123'))
