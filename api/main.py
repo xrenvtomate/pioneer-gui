@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pioneer_sdk import Pioneer
 from utils.wifis import wifi_list, connect
 from drones.connection import drones, add_drone, drones_to_connect
+from drones.funtions import motor_on
 
 app = FastAPI()
 
@@ -41,7 +42,8 @@ def disconnect_handler(data: dict):
 
 @app.post('/motorOn')
 def motorTurnOn(data: dict):
-    print(data)
+    for drone in drones.items():
+        motor_on(drone)
     # pioneer = data['object']
     # pioneer.arm()
     # pioneer.takeoff()
