@@ -25,7 +25,6 @@ def list_wifis():
 def connect_host(data: dict):
     ssid = data['ssid']
     connect(ssid)
-    pioneer = Pioneer()
     return {'res': 'success', 'object': 'pioneer'}
 
 
