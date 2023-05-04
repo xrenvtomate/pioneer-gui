@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from wifis import wifi_list, connect, check_connection
+from pioneer_sdk import Pioneer
+from wifis import wifi_list, connect
 
 app = FastAPI()
 
@@ -23,4 +23,17 @@ def list_wifis():
 def connect_handler(data: dict):
     ssid = data['ssid']
     connect(ssid)
-    return {'res': 'success'}
+    pioneer = Pioneer()
+    return {'res': 'success', 'object': 'pioneer'}
+
+@app.post('/disconnect')
+def disconnect_handler(data: dict):
+    pioneer = data['object']
+    pioneer.disconnect()
+
+@app.post('/motorOn')
+def motorTurnOn(data: dict):
+    print(data)
+    # pioneer = data['object']
+    # pioneer.arm()
+    # pioneer.takeoff()
