@@ -23,12 +23,25 @@ def list_wifis():
 def connect_host(data: dict):
     ssid = data['ssid']
     add_drones(ssid)
+    
     connect(ssid)
     if not drones:
         return {'res': 'error', 'drone_ip': None}
     return {'res': 'success', 'drone_ip': list(drones.keys())[0]}
     # return {'res': 'success', 'drone_ip': '12341234'}
 
+
+x = y = 0
+
+@app.get('/drone_coordinates/')
+def get_coordinates():
+    # drones[data['drone_ip']] 
+    global x, y
+    x += 10
+    y += 20
+    x %= 300
+    y %= 300
+    return {'x': x, 'y': y}
 
 @app.post('/connect_client/')
 def connect_client(data: dict):

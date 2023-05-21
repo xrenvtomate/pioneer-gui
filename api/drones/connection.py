@@ -16,5 +16,4 @@ def add_drones(host_ssid):
         ip = connect_drone_to_wifi(drone, host_ssid)
         if ip:
             print(ip)
-        if ip:
             add_drone(ip)
