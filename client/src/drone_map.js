@@ -33,12 +33,6 @@ async function updateCanvas() {
     ctx.arc(x, y, 10, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'green';
     ctx.fill();
-    
 }
 
-async function update() {
-    updateCanvas();
-    // updating stats about a drone
-}
 
-window.setInterval(update, 500, )

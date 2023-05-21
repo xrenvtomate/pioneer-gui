@@ -17,3 +17,12 @@ def add_drones(host_ssid):
         if ip:
             print(ip)
             add_drone(ip)
+
+
+i = 0
+
+
+def get_drone_state():
+    global i
+    i += 1
+    return {'info': f'idk {i}'}
