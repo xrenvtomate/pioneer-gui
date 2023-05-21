@@ -10,7 +10,10 @@ def takeoff_all():
 
 i = 0
 
-def get_drone_state():
+def get_drone_state(ip):
     global i
     i += 1
     return {'info': f'idk {i}'}
+
+def get_coordinates():
+    pass

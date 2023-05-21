@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from utils.wifis import wifi_list, connect
-from drones.connection import drones, add_drones, drones_to_connect, get_drone_state
+from drones.connection import drones, add_drones, drones_to_connect
+from drones.functions import motor_on, takeoff_all
 from drones import functions
 app = FastAPI()
 
@@ -41,13 +42,14 @@ def get_coordinates():
     y += 20
     x %= 300
     y %= 300
+    # return functions.get_coordinates()
     return {'x': x, 'y': y}
 
 
 
 @app.get('/get_state/')
 def get_state():
-    return get_drone_state()
+    return functions.get_drone_state(None)
 
 
 @app.post('/connect_client/')
