@@ -32,18 +32,9 @@ def connect_host(data: dict):
     # return {'res': 'success', 'drone_ip': '12341234'}
 
 
-x = y = 0
-
 @app.get('/drone_coordinates/')
 def get_coordinates():
-    # drones[data['drone_ip']] 
-    global x, y
-    x += 10
-    y += 20
-    x %= 300
-    y %= 300
-    # return functions.get_coordinates()
-    return {'x': x, 'y': y}
+    return functions.get_coordinates()
 
 
 

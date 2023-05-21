@@ -15,5 +15,15 @@ def get_drone_state(ip):
     i += 1
     return {'info': f'idk {i}'}
 
+
+
+x = y = 0 
+
+
 def get_coordinates():
-    pass
+    global x, y
+    x += 10
+    y += 20
+    x %= 300
+    y %= 300
+    return {'x': x, 'y': y}
