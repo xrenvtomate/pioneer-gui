@@ -22,7 +22,6 @@ host_list_btn.addEventListener("click", async () => {
       host_list.appendChild(listItem);
       
       connect_btn.addEventListener("click", async () => {
-        console.log(111)
         const data = { ssid: wifi_name };
         const response = await fetch("http://localhost:8000/connect_host/", {
           method: "POST",

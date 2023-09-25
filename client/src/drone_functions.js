@@ -1,7 +1,8 @@
 
-const disconnection_btn = document.getElementById("disconnect-btn");
+const disconnect_btn = document.getElementById("disconnect-btn");
 const motorOn_btn = document.getElementById("motorOn-btn");
-const takeoff_all_btn = document.getElementById("takeoff-all-btn")
+const takeoff_all_btn = document.getElementById("takeoff-all-btn");
+const land_btn = document.getElementById("land-btn")
 
 
 
@@ -23,7 +24,7 @@ motorOn_btn.addEventListener("click", async () =>{
   )
 })
 
-disconnection_btn.addEventListener("click", async () => {
+disconnect_btn.addEventListener("click", async () => {
   console.log(window.current_drone)
   await fetch(
     'http://localhost:8000/disconnect/', {

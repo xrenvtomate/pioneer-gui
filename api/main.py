@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from utils.wifis import wifi_list, connect
 from drones.connection import drones, add_drones, drones_to_connect
@@ -29,7 +30,7 @@ def connect_host(data: dict):
     if not drones:
         return {'res': 'error', 'drone_ip': None}
     return {'res': 'success', 'drone_ip': list(drones.keys())[0]}
-    # return {'res': 'success', 'drone_ip': '12341234'}
+    # return {'res': 'succeнеss', 'drone_ip': '12341234'}
 
 
 @app.get('/drone_coordinates/')
@@ -57,10 +58,20 @@ def disconnect_handler(data: dict):
     pioneer = drones[data['drone_ip']]
     pioneer.disconnect()
 
+
+class DroneIp(BaseModel):
+    drone_ip: str
+
+
 @app.post('/motor_on/')
-def motorTurnOn(data: dict):
-    functions.motor_on(drones[data['drone_ip']])
+def motorTurnOn(drone_ip: str):
+    functions.motor_on(drones[drone_ip])
 
 @app.post('/takeoff_all/')
 def disconnect_handler():
     functions.takeoff_all()
+
+@app.post('/land/')
+def disconnect_handler(data: dict):
+    pioneer = drones[data['drone_ip']]
+    pioneer.land()

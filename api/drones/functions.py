@@ -16,7 +16,6 @@ def get_drone_state(ip):
     return {'info': f'idk {i}'}
 
 
-
 x = y = 0 
 
 

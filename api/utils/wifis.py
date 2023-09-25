@@ -84,9 +84,10 @@ def connect_drone_to_wifi(drone_ssid, ssid):
             print('\n')
             print(e)
             print('\n')
-            return False
+    else:
+        return False
     print(response)
-    if not response['success']:
+    if not response['wifi_sta_connected']:
         print('unknown error from the drone')
         return False
     return '.'.join(map(str, response['wifi_sta_ip']))

@@ -4,4 +4,4 @@ async function update() {
 }
 
 let updateInterval = window.setInterval(update, 500)
-setTimeout(() => clearInterval(updateInterval), 5000)
+setTimeout(() => clearInterval(updateInterval), 10000)
