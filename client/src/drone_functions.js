@@ -19,6 +19,9 @@ motorOn_btn.addEventListener("click", async () =>{
   await fetch(
     'http://localhost:8000/motor_on/', {
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({drone_ip: window.current_drone})
     }
   )
