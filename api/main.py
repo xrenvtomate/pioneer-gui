@@ -68,6 +68,11 @@ def motorTurnOn(drone_ip: DroneIp):
     print(drone_ip)
     functions.motor_on(drones[drone_ip.drone_ip])
 
+@app.post('/motor_off/')
+def motorTurnOn(drone_ip: DroneIp):
+    print(drone_ip)
+    functions.motor_off(drones[drone_ip.drone_ip])
+
 @app.post('/takeoff_all/')
 def disconnect_handler():
     functions.takeoff_all()

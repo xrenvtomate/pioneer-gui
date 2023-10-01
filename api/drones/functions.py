@@ -8,6 +8,9 @@ def takeoff_all():
         drone.arm()
         drone.takeoff()
 
+def motor_off(pioneer):
+    pioneer.disarm()
+
 i = 0
 
 def get_drone_state(ip):
