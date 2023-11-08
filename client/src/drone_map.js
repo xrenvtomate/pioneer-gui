@@ -3,7 +3,6 @@ const ctx = canvas.getContext('2d');
 
 const width = 500, height = 400
 
-
 function clearCanvas() {
     ctx.beginPath()
     ctx.clearRect(0, 0, canvas.width, canvas.height);
