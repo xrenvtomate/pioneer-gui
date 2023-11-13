@@ -3,8 +3,9 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from utils.wifis import wifi_list, connect
 from drones.connection import drones, add_drones, drones_to_connect
-from drones.functions import motor_on, takeoff_all
+from schemas import DroneIP
 from drones import functions
+
 app = FastAPI()
 
 app.add_middleware(
@@ -40,7 +41,8 @@ def get_coordinates():
 
 
 @app.get('/get_state/')
-def get_state():
+def get_state(ip: DroneIP):
+    functions.get_state(ip)
     return functions.get_drone_state(None)
 
 

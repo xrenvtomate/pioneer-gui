@@ -27,3 +27,11 @@ def get_coordinates():
     x %= 300
     y %= 300
     return {'x': x, 'y': y}
+
+def get_state(ip):
+    p = drones[ip]
+    state = {}
+    state['xyz'] = p.get_local_position_lps()
+    state['autopilot_state'] = p.get_autopilot_state()
+    print(state)
+    
