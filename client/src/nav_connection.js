@@ -30,15 +30,12 @@ host_list_btn.addEventListener("click", async () => {
           },
           body: JSON.stringify(data),
         });
-        console.log(2323)
         res = await response.json()
-        console.log("FGGGGGGGG")
         if (res.res == "error") {
           generateAlert('danger', 'error')
         }
         else {
           window.current_drone = res.drone_ip
-          console.log(res.drone_ip)
           generateAlert("success", window.current_drone);
         }
       });

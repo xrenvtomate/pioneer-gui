@@ -7,6 +7,10 @@ const motorOff_btn = document.getElementById("motorOff-btn");
 
 
 takeoff_all_btn.addEventListener("click", async () =>{
+  if (!window.current_drone) {
+    generateAlert('danger', 'Отстутствуют подключенные дроны')
+    return
+  }
   await fetch(
     'http://localhost:8000/takeoff_all/', {
       method: 'POST',
@@ -15,6 +19,10 @@ takeoff_all_btn.addEventListener("click", async () =>{
 })
 
 motorOn_btn.addEventListener("click", async () =>{
+  if (!window.current_drone) {
+    generateAlert('danger', 'Отстутствуют подключенные дроны')
+    return
+  }
   console.log(window.current_drone)
   await fetch(
     'http://localhost:8000/motor_on/', {
@@ -28,6 +36,10 @@ motorOn_btn.addEventListener("click", async () =>{
 })
 
 motorOff_btn.addEventListener("click", async () => {
+  if (!window.current_drone) {
+    generateAlert('danger', 'Отстутствуют подключенные дроны')
+    return
+  }
   console.log(window.current_drone)
   await fetch(
     'http://localhost:8000/motor_off/', {
@@ -41,6 +53,10 @@ motorOff_btn.addEventListener("click", async () => {
 })
 
 disconnect_btn.addEventListener("click", async () => {
+  if (!window.current_drone) {
+    generateAlert('danger', 'Отстутствуют подключенные дроны')
+    return
+  }
   console.log(window.current_drone)
   await fetch(
     'http://localhost:8000/disconnect/', {

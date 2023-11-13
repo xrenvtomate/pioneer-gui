@@ -53,8 +53,9 @@ def create_profile(ssid, password):
 def connect(profile):
     command = f"netsh wlan connect name=\"{profile}\""
     os.system(command)
-    print('connection ended')
-    time.sleep(2)
+    print('connection ended, wait 5 seconds')
+    time.sleep(5)
+    print('done')
 
 def check_connection(ssid):
     output = subprocess.check_output(['netsh', 'wlan', 'show', 'interfaces']).decode('cp1252', errors='replace')
@@ -70,13 +71,15 @@ def get_password(ssid):
 
 def connect_drone_to_wifi(drone_ssid, ssid):
     print('trying to connect to drone')
-    create_profile(drone_ssid, '12345678')
+    # create_profile(drone_ssid, '12345678')
     connect(drone_ssid)
     password = get_password(ssid)
     for i in range(1, 4):
         try:
             print(f'attempt {i} to send request to the drone')
-            response = requests.get(f'http://192.168.4.1/control?function=wifi&command=connect&ssid={ssid}&password={password}').json()
+            response = requests.get(f'http://192.168.4.1/control?function=wifi&command=connect&ssid={ssid.replace(" ", "%20")}&password={password}').json()
+            if not response['wifi_sta_connected']:
+                continue
             print('request successfully sent')
             break
         except Exception as e:

@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from utils.wifis import wifi_list, connect
@@ -55,8 +55,8 @@ def connect_client(data: dict):
 
 
 @app.post('/disconnect/')
-def disconnect_handler(data: dict):
-    pioneer = drones[data['drone_ip']]
+def disconnect_handler(drone_ip: str = Body()):
+    pioneer = drones[drone_ip]
     pioneer.disconnect()
 
 
@@ -79,6 +79,6 @@ def disconnect_handler():
     functions.takeoff_all()
 
 @app.post('/land/')
-def disconnect_handler(data: dict):
-    pioneer = drones[data['drone_ip']]
+def disconnect_handler(drone_ip: DroneIP):
+    pioneer = drones[drone_ip.drone_ip]
     pioneer.land()

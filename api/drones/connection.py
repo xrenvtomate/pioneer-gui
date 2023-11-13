@@ -7,8 +7,11 @@ drones_to_connect = set()
 
 def add_drone(ip):
     drones[ip] = Pioneer(ip=ip)
+    print(drones[ip].get_battery_status())
     drones[ip].arm()
+    
     time.sleep(1)
+    print(drones[ip].get_battery_status())
     drones[ip].disarm()
 
 def add_drones(host_ssid):
