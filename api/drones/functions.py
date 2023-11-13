@@ -14,10 +14,6 @@ def motor_off(pioneer):
 i = 0
 x = y = 0 
 
-def get_drone_state(ip):
-    return {'info': f'x: {x}<br>y: {y}'}
-
-
 
 
 def get_coordinates():
@@ -28,10 +24,11 @@ def get_coordinates():
     y %= 300
     return {'x': x, 'y': y}
 
-def get_state(ip):
+def get_drone_state(ip):
     p = drones[ip]
     state = {}
     state['xyz'] = p.get_local_position_lps()
     state['autopilot_state'] = p.get_autopilot_state()
     print(state)
+    return state
     

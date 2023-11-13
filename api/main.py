@@ -41,9 +41,8 @@ def get_coordinates():
 
 
 @app.get('/get_state/')
-def get_state(ip: DroneIP):
-    functions.get_state(ip)
-    return functions.get_drone_state(None)
+def get_state(ip: str):
+    return functions.get_drone_state(ip)
 
 
 @app.post('/connect_client/')
