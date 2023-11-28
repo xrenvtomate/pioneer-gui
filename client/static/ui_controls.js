@@ -1,6 +1,3 @@
-
-
-
 function generateAlert(alertType, message) {
   var alertDiv = document.createElement("div");
   alertDiv.classList.add("alert", "alert-" + alertType, "alert-dismissible", "fade", "show");

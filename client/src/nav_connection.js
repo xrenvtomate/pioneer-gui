@@ -1,5 +1,8 @@
 const host_list_btn = document.getElementById("host-btn");
 const host_list = document.getElementById("list-host");
+const connected_list = document.getElementById('connected-drones') 
+
+
 host_list.style.display = "none";
 
 host_list_btn.addEventListener("click", async () => {
@@ -36,6 +39,8 @@ host_list_btn.addEventListener("click", async () => {
         }
         else {
           window.current_drone = res.drone_ip
+          connected_list.textContent += ' ' + res.drone_ip
+
           generateAlert("success", window.current_drone);
         }
       });

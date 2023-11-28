@@ -48,9 +48,7 @@ def get_state(ip: str):
 @app.post('/connect_client/')
 def connect_client(data: dict):
     ssid = data['ssid']
-    print(drones_to_connect)
     drones_to_connect.add(ssid)
-    print(drones_to_connect)
     return {'res': 'success'}
 
 
@@ -75,7 +73,7 @@ def motorTurnOn(drone_ip: DroneIp):
     functions.motor_off(drones[drone_ip.drone_ip])
 
 @app.post('/takeoff_all/')
-def disconnect_handler():
+def takeoff_all():
     functions.takeoff_all()
 
 @app.post('/land/')

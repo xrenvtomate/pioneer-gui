@@ -1,3 +1,7 @@
 client/node_modules/
 **/**/__pycache__/
 api/profiles/
+build
+dist
+out
+node_modules

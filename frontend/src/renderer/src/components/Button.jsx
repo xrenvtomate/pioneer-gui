@@ -1,0 +1,1 @@
+export default ({...props}) => <button {...props} className="bg-zinc-600 px-4 rounded text-lg transition-all hover:bg-slate-600 active:bg-slate-700 shadow hover:shadow-lg" />

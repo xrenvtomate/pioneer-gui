@@ -6,7 +6,7 @@ const motorOff_btn = document.getElementById("motorOff-btn");
 
 
 
-takeoff_all_btn.addEventListener("click", async () =>{
+takeoff_all_btn.addEventListener("click", async () => {
   if (!window.current_drone) {
     generateAlert('danger', 'Отстутствуют подключенные дроны')
     return
@@ -23,7 +23,6 @@ motorOn_btn.addEventListener("click", async () =>{
     generateAlert('danger', 'Отстутствуют подключенные дроны')
     return
   }
-  console.log(window.current_drone)
   await fetch(
     'http://localhost:8000/motor_on/', {
       method: 'POST',
@@ -40,7 +39,6 @@ motorOff_btn.addEventListener("click", async () => {
     generateAlert('danger', 'Отстутствуют подключенные дроны')
     return
   }
-  console.log(window.current_drone)
   await fetch(
     'http://localhost:8000/motor_off/', {
       method: 'POST',
