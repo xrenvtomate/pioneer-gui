@@ -9,7 +9,7 @@ export default function ({currentDrone}) {
     z: '0.6m',
     battery: '42%',
   }
-  return <div className="p-4 rounded-xl bg-zinc-700 flex flex-col gap-4 shadow-xl">
+  return <div className="p-4 rounded-xl bg-zinc-700 flex flex-col gap-4 shadow-xl border border-white/10">
     <p className="text-xl">ip: {info.ip}</p>
     <div>
       <p>Высота: {info.height}</p>

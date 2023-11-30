@@ -3,7 +3,7 @@ import { MdBlock } from "react-icons/md";
 
 export default function({drones}) {
   const availableDrones = ['pioneer-gh29gh2g', 'pioneer-gh29gh21g']
-  return <div className="p-4 rounded-xl bg-zinc-700 shadow-xl">
+  return <div className="p-4 rounded-xl bg-zinc-700 shadow-xl border border-white/10">
     <p className="tex-xl mb-2">Подключенные дроны</p>
     <div className="flex flex-col gap-1">
       {drones.map((drone, i) => (
