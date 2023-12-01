@@ -5,7 +5,7 @@ import { ImConnection } from "react-icons/im";
 import { connect_host } from '../utils/connection';
 import { MdOutlineClose } from "react-icons/md";
 
-export default ({dronesToConnect}) => {
+export default ({dronesToConnect, setDronesToConnect}) => {
   const [nets, setNets] = useState([])
   const [open, setOpen] = useState(false)
   const fetchNets = async () => {
@@ -30,7 +30,7 @@ export default ({dronesToConnect}) => {
           {nets.map(net => <div key={net} className="rounded bg-zinc-700 px-2 flex items-center">
           <ImConnection className='mr-2'/>
           {net}
-          <button className='ml-auto' onClick={()=>connect_host(net, dronesToConnect)}>Подключиться</button>
+          <button className='ml-auto' onClick={()=>{connect_host(net, dronesToConnect); setDronesToConnect([])}}>Подключиться</button>
           </div>)}
         </div>
 

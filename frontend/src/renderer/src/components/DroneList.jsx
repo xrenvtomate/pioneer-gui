@@ -4,14 +4,12 @@ import { MdBlock } from "react-icons/md";
 import { connectClient } from "../utils/connection";
 import AvailableDrone from "./AvailableDrone";
 
-export default function({drones, dronesToConnect, setDronesToConnect}) {
+export default function({drones, dronesToConnect, setDronesToConnect, connectedDrones}) {
   const [availableDrones, setAvailableDrones] = useState([])
   const fetchDrones = async () => {
     const response = await fetch("http://localhost:8000/list/");
     const items = await response.json();
-    const pioneers = items.filter(str => str.startsWith("Pio"));
-    console.log(items)
-    console.log(pioneers)
+    const pioneers = items.filter(str => str.startsWith("Pio") && !connectedDrones.includes(str));
     setAvailableDrones(pioneers)
   }
   useEffect(() => {

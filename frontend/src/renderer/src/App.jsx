@@ -8,9 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
-  const [state, setState] = useState(1)
   const [drones, setDrones] = useState([])
   const [currentDrone, setCurrentDrone] = useState('123')
+  const [connectedDrones, setConnectedDrones] = usestate([])
   const [dronesToConnect, setDronesToConnect] = useState([])
 
   // for test
@@ -27,7 +27,7 @@ function App() {
       <div className='flex justify-between'>
         <Map />
         <DroneInfo {...{currentDrone}}/>
-        <DroneList {...{drones}} {...{dronesToConnect, setDronesToConnect}} />
+        <DroneList {...{drones, dronesToConnect, setDronesToConnect, connectedDrones}} />
       </div>
       <div className='flex flex-col justify-between gap-2 mt-8 w-56'>
         <Button>Включение моторов</Button>
@@ -38,7 +38,7 @@ function App() {
     <div className='absolute bottom-0 flex justify-between w-full p-8'>
       <Button>Запустить скрипт</Button>
       <div className='flex gap-2'>
-        <HostDialog {...{dronesToConnect}} />
+        <HostDialog {...{dronesToConnect, setDronesToConnect}} />
         <Button>Подключить всех к хосту</Button>
       </div>
     </div>
