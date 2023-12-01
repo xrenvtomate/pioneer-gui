@@ -3,7 +3,6 @@ from utils.wifis import connect_drone_to_wifi
 import time
 
 drones = {}
-drones_to_connect = set()
 
 def add_drone(ip):
     drones[ip] = Pioneer(ip=ip)
@@ -14,8 +13,8 @@ def add_drone(ip):
     print(drones[ip].get_battery_status())
     drones[ip].disarm()
 
-def add_drones(host_ssid):
-    for drone in drones_to_connect:
+def add_drones(host_ssid, drones):
+    for drone in drones:
         ip = connect_drone_to_wifi(drone, host_ssid)
         if ip:
             print(ip)

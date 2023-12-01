@@ -25,7 +25,8 @@ def list_wifis():
 @app.post('/connect_host/')
 def connect_host(data: dict):
     ssid = data['ssid']
-    add_drones(ssid)
+    drones = data['drones']
+    add_drones(ssid, drones)
     
     connect(ssid)
     if not drones:

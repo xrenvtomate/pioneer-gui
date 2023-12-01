@@ -21,7 +21,6 @@ con_list_btn.addEventListener("click", async () => {
       listItem.textContent = item;
       listItem.appendChild(connect_btn);
       con_list.appendChild(listItem);
-      console.log(item);
     });
   } else {
     con_list.style.display = "none";
