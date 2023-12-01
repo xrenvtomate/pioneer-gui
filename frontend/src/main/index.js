@@ -13,7 +13,9 @@ function createWindow() {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      webSecurity: false,
+      // contentSecurityPolicy: "default-src 'self'; connect-src 'http://127.0.0.1:8000/'"
     }
   })
 

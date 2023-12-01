@@ -3,6 +3,7 @@ import Map from './components/Map'
 import { useEffect, useState } from 'react'
 import DroneList from './components/DroneList'
 import DroneInfo from './components/DroneInfo'
+import HostDialog from './components/HostDialog'
 
 function App() {
   const [state, setState] = useState(1)
@@ -35,7 +36,7 @@ function App() {
     <div className='absolute bottom-0 flex justify-between w-full p-8'>
       <Button>Запустить скрипт</Button>
       <div className='flex gap-2'>
-        <Button >Выбрать хост</Button>
+        <HostDialog />
         <Button>Подключить всех к хосту</Button>
       </div>
     </div>
