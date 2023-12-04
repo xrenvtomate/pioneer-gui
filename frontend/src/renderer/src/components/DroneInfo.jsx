@@ -1,5 +1,5 @@
 import Button from "./Button"
-import { flyToXYZ } from "../utils/commands"
+import { flyToXYZ, land, takeOff } from "../utils/commands"
 import { useState } from "react"
 
 export default function ({currentDrone}) {
@@ -20,8 +20,8 @@ export default function ({currentDrone}) {
       <p>x: {info.x} y: {info.y} z: {info.z}</p>
     </div>
     <div className="flex justify-between">
-      <Button onClick={()=>(1)}>Взлет</Button>
-      <Button onClick={()=>(1)}>Посадка</Button>
+      <Button onClick={()=>(takeOff(currentDrone.ip))}>Взлет</Button>
+      <Button onClick={()=>(land(currentDrone.ip))}>Посадка</Button>
     </div>
     <div>
       <div className="mb-2">
@@ -29,7 +29,7 @@ export default function ({currentDrone}) {
         y: <input value={coords[1]} onChange={e => setCoords([coords[0], e.target.value, coords[2]])} type="text" className="w-8 bg-zinc-500 rounded mr-1" />
         z: <input value={coords[2]} onChange={e => setCoords([...coords.slice(0, 2), e.target.value])} type="text" className="w-8 bg-zinc-500 rounded" />
       </div>
-      <Button onClick={()=>flyToXYZ(currentDrone, ...coords)}>Лететь в координаты</Button>
+      <Button onClick={()=>flyToXYZ(currentDrone.ip, ...coords)}>Лететь в координаты</Button>
     </div>
   </div>
 }

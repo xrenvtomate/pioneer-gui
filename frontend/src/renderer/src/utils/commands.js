@@ -26,3 +26,14 @@ export function takeOff(drone) {
     body: JSON.stringify({drone_ip: drone})
   })
 }
+
+export function land(drone) {
+  fetch('http://localhost:8000/land/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({drone_ip: drone})
+  })
+  
+}
