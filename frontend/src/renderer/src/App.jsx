@@ -7,13 +7,14 @@ import HostDialog from './components/HostDialog'
 import FunctionButtons from './components/FunctionButtons'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import useAutoSelectDrone from './hooks/useAutoSelectDrone'
 
 function App() {
   const [drones, setDrones] = useState([])
-  const [currentDrone, setCurrentDrone] = useState('123')
-  const [connectedDrones, setConnectedDrones] = useState([])
+  const [currentDrone, setCurrentDrone] = useState(null)
   const [dronesToConnect, setDronesToConnect] = useState([])
 
+  useAutoSelectDrone(drones, currentDrone, setCurrentDrone)
 
   useEffect(() => setDrones([
     {ip: '22.123.123.123'},
@@ -25,10 +26,10 @@ function App() {
   return (<>
     <ToastContainer theme="dark" />
     <div className='p-8 h-full relative box-border'>
-      <div className='flex justify-between'>
+      <div className='flex justify-between gap-4'>
         <Map />
         <DroneInfo {...{currentDrone}}/>
-        <DroneList {...{drones, dronesToConnect, setDronesToConnect, connectedDrones, currentDrone, setCurrentDrone}} />
+        <DroneList {...{drones, dronesToConnect, setDronesToConnect, currentDrone, setCurrentDrone}} />
       </div>
       <FunctionButtons />
     </div>
