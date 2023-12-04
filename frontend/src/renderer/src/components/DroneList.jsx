@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { MdAdd } from "react-icons/md";
 import { MdBlock } from "react-icons/md";
-import { connectClient } from "../utils/connection";
 import AvailableDrone from "./AvailableDrone";
 
-export default function({drones, dronesToConnect, setDronesToConnect, connectedDrones}) {
+export default function({drones, dronesToConnect, setDronesToConnect, connectedDrones, currentDrone, setCurrentDrone}) {
   const [availableDrones, setAvailableDrones] = useState([])
   const fetchDrones = async () => {
     const response = await fetch("http://localhost:8000/list/");
@@ -18,20 +16,23 @@ export default function({drones, dronesToConnect, setDronesToConnect, connectedD
   }, [])
 
 
-
   return <div className="p-4 rounded-xl bg-zinc-700 shadow-xl border border-white/10">
-    <p className="tex-xl mb-2">Подключенные дроны</p>
-    <div className="flex flex-col gap-1">
-      {drones.map((drone, i) => (
-        <div className="bg-zinc-500 rounded px-2 flex justify-between items-center" key={[drone.ip, i]}>
-          {drone.ip}
-          <button onClick={() => (1)}>
-            <MdBlock size={'1.1em'} color="#cbd5e1"/>
-          </button>
-        </div>
-      ))}
-    </div>
-    <p className="tex-xl mb-2 mt-4">Доступные для подключения</p>
+    <p className="text-lg mb-2">Подключенные дроны</p>
+    {drones.length ? (
+      <div className="flex flex-col gap-1">
+        {drones.map((drone, i) => (
+          <div className={`${drone == currentDrone ? 'bg-zinc-800' : 'bg-zinc-500'} rounded px-2 flex justify-between items-center cursor-pointer`} key={[drone.ip, i]} onClick={() => setCurrentDrone(drone)}>
+            {drone.ip}
+            <button onClick={() => (1)}>
+              <MdBlock size={'1.1em'} color="#cbd5e1"/>
+            </button>
+          </div>
+        ))}
+      </div>) : (
+        <p className="text-white/50 text-sm">Нету подключенных дронов</p>
+      )
+    }
+    <p className="text-lg mb-2 mt-4">Доступные для подключения</p>
     <div className="flex flex-col gap-1">
       {availableDrones.map(drone => (
         <AvailableDrone drone={drone} {...{setDronesToConnect}} status={dronesToConnect.includes(drone)} />

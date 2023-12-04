@@ -1,0 +1,18 @@
+export function takeOffAll() {
+  fetch(
+    'http://localhost:8000/takeoff_all/', {
+      method: 'POST',
+    }
+  )
+}
+
+
+export function flyToXYZ(drone, x, y, z) {
+  'http://localhost:8000/goto/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({drone_ip: drone, x, y, z})
+  }
+}

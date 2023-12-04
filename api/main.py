@@ -2,8 +2,8 @@ from fastapi import FastAPI, Body
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from utils.wifis import wifi_list, connect
-from drones.connection import drones, add_drones, drones_to_connect
-from schemas import DroneIP
+from drones.connection import drones, add_drones
+from schemas import DroneIP, GoTo
 from drones import functions
 
 app = FastAPI()
@@ -31,8 +31,7 @@ def connect_host(data: dict):
     connect(ssid)
     if not drones:
         return {'res': 'error', 'drone_ip': None}
-    return {'res': 'success', 'drone_ip': list(drones.keys())[0]}
-    # return {'res': 'succeнеss', 'drone_ip': '12341234'}
+    return {'res': 'success', 'list': list(drones.keys())}
 
 
 @app.get('/drone_coordinates/')
@@ -44,13 +43,6 @@ def get_coordinates():
 @app.get('/get_state/')
 def get_state(ip: str):
     return functions.get_drone_state(ip)
-
-
-@app.post('/connect_client/')
-def connect_client(data: dict):
-    ssid = data['ssid']
-    drones_to_connect.add(ssid)
-    return {'res': 'success'}
 
 
 @app.post('/disconnect/')
@@ -81,3 +73,8 @@ def takeoff_all():
 def disconnect_handler(drone_ip: DroneIP):
     pioneer = drones[drone_ip.drone_ip]
     pioneer.land()
+
+@app.post('/goto')
+def go_to_point(drone: DroneIP, coords: GoTo):
+    pioneer = drones[drone.drone_ip]
+    pioneer.go_to_local_point(x=coords.x, y=coords.y, z=coords.z)

@@ -1,8 +1,11 @@
 import Button from "./Button"
+import { flyToXYZ } from "../utils/commands"
+import { useState } from "react"
 
 export default function ({currentDrone}) {
+  const [coords, setCoords] = useState([0, 0, 0])
   const info = {
-    ip: '123231',
+    ip: currentDrone.ip,
     height: '0.4m',
     x: '0.3m',
     y: '0.5m',
@@ -22,11 +25,11 @@ export default function ({currentDrone}) {
     </div>
     <div>
       <div className="mb-2">
-        x: <input type="text" className="w-8 bg-zinc-500 rounded mr-1" />
-        y: <input type="text" className="w-8 bg-zinc-500 rounded mr-1" />
-        z: <input type="text" className="w-8 bg-zinc-500 rounded" />
+        x: <input value={coords[0]} onChange={e => setCoords([e.target.value, ...coords.slice(1, 3)])} type="text" className="w-8 bg-zinc-500 rounded mr-1" />
+        y: <input value={coords[1]} onChange={e => setCoords([coords[0], e.target.value, coords[2]])} type="text" className="w-8 bg-zinc-500 rounded mr-1" />
+        z: <input value={coords[2]} onChange={e => setCoords([...coords.slice(0, 2), e.target.value])} type="text" className="w-8 bg-zinc-500 rounded" />
       </div>
-      <Button>Лететь в координаты</Button>
+      <Button onClick={()=>flyToXYZ(currentDrone, ...coords)}>Лететь в координаты</Button>
     </div>
   </div>
 }
