@@ -71,3 +71,9 @@ def disconnect_handler(drone_ip: DroneIP):
 def go_to_point(drone: DroneIP, coords: GoTo):
     pioneer = drones[drone.drone_ip]
     pioneer.go_to_local_point(x=coords.x, y=coords.y, z=coords.z)
+
+@router.post('takeoff')
+def take_off(drone: DroneIP):
+    pioneer = drones[drone.drone_ip]
+    pioneer.arm()
+    pioneer.take_off()
