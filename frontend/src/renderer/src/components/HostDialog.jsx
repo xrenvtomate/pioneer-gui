@@ -13,15 +13,11 @@ export default ({dronesToConnect, setDronesToConnect, setDrones}) => {
     const items = await response.json();
     setNets(items)
   }
-  useEffect(() => {
-    const interval = setInterval(fetchNets, 10000);
-    return () => clearInterval(interval);
-  }, [])
 
-  const connect = (net) => {
-    const res = connect_host(net, dronesToConnect)
+  const connect = async (net) => {
+    const res = await connect_host(net, dronesToConnect)
     if (res) {
-      setDrones(res)
+      setDrones(res.map(el => ({ip: el})))
       setDronesToConnect([])
     }
   }

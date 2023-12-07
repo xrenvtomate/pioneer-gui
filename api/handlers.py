@@ -18,8 +18,23 @@ def list_wifis():
 @router.post('/connect_host/')
 def connect_host(data: dict):
     ssid = data['ssid']
-    drones = data['drones']
-    add_drones(ssid, drones)
+    with open('saved_net.txt', 'w') as f:
+        f.write(ssid)
+    drones_to_connect = data['drones']
+    add_drones(ssid, drones_to_connect)
+    
+    connect(ssid)
+    if not drones:
+        return {'res': 'error', 'drone_ip': None}
+    return {'res': 'success', 'list': list(drones.keys())}
+
+
+@router.post('/connect_saved')
+def connect_remembered(data: dict):
+    with open('saved_net.txt', 'r') as f:
+        ssid = f.read()
+    drones_to_connect = data['drones']
+    add_drones(ssid, drones_to_connect)
     
     connect(ssid)
     if not drones:
@@ -72,8 +87,8 @@ def go_to_point(drone: DroneIP, coords: GoTo):
     pioneer = drones[drone.drone_ip]
     pioneer.go_to_local_point(x=coords.x, y=coords.y, z=coords.z)
 
-@router.post('takeoff')
+@router.post('/takeoff')
 def take_off(drone: DroneIP):
     pioneer = drones[drone.drone_ip]
     pioneer.arm()
-    pioneer.take_off()
+    pioneer.takeoff()

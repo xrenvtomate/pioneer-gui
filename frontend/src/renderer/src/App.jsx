@@ -8,7 +8,7 @@ import FunctionButtons from './components/FunctionButtons'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import useAutoSelectDrone from './hooks/useAutoSelectDrone'
-
+import ConnectSaved from './components/ConnectSaved'
 function App() {
   const [drones, setDrones] = useState([])
   const [currentDrone, setCurrentDrone] = useState(null)
@@ -16,12 +16,12 @@ function App() {
 
   useAutoSelectDrone(drones, currentDrone, setCurrentDrone)
 
-  useEffect(() => setDrones([
-    {ip: '22.123.123.123'},
-    {ip: '123.64.123.123'},
-    {ip: '123.123.34.123'},
-    {ip: '123.98.123.123'},
-  ]), [])
+  // useEffect(() => setDrones([
+  //   {ip: '22.123.123.123'},
+  //   {ip: '123.64.123.123'},
+  //   {ip: '123.123.34.123'},
+  //   {ip: '123.98.123.123'},
+  // ]), [])
 
   return (<>
     <ToastContainer theme="dark" />
@@ -37,7 +37,7 @@ function App() {
       <Button>Запустить скрипт</Button>
       <div className='flex gap-2'>
         <HostDialog {...{dronesToConnect, setDronesToConnect, setDrones}} />
-        <Button>Подключить всех к хосту</Button>
+        <ConnectSaved {...{dronesToConnect, setDronesToConnect, setDrones}} />
       </div>
     </div>
   </>)

@@ -77,7 +77,7 @@ def connect_drone_to_wifi(drone_ssid, ssid):
         try:
             print(f'attempt {i} to send request to the drone')
             response = requests.get(f'http://192.168.4.1/control?function=wifi&command=connect&ssid={ssid.replace(" ", "%20")}&password={password}').json()
-            if not response['wifi_sta_connected']:
+            if not response['wifi_sta_connected'] or response['wifi_sta_ip'] == ['0', '0', '0', '0']:
                 continue
             print('request successfully sent')
             break

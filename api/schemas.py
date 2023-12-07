@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class DroneIP(BaseModel):
-    ip: str
+    drone_ip: str
 
 class GoTo(BaseModel):
     x: int

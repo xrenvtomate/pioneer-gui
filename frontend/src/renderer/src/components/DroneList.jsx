@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MdBlock } from "react-icons/md";
 import AvailableDrone from "./AvailableDrone";
+import { IoMdRefresh } from "react-icons/io";
 
 export default function({drones, dronesToConnect, setDronesToConnect, currentDrone, setCurrentDrone}) {
   const [availableDrones, setAvailableDrones] = useState([])
@@ -11,8 +12,7 @@ export default function({drones, dronesToConnect, setDronesToConnect, currentDro
     setAvailableDrones(pioneers)
   }
   useEffect(() => {
-    const interval = setInterval(fetchDrones, 10000);
-    return () => clearInterval(interval);
+    fetchDrones()
   }, [])
 
 
@@ -33,9 +33,12 @@ export default function({drones, dronesToConnect, setDronesToConnect, currentDro
       )
     }
     <p className="text-lg mb-2 mt-4">Доступные для подключения</p>
+    <div className="flex justify-center">
+      <IoMdRefresh onClick={fetchDrones} className="cursor-pointer"/>
+    </div>
     <div className="flex flex-col gap-1">
       {availableDrones.map(drone => (
-        <AvailableDrone drone={drone} {...{setDronesToConnect}} status={dronesToConnect.includes(drone)} />
+        <AvailableDrone key={drone} drone={drone} {...{setDronesToConnect}} status={dronesToConnect.includes(drone)} />
       ))}
     </div>
   </div>
