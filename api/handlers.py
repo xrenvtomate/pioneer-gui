@@ -1,9 +1,11 @@
+import json
+
 from fastapi import APIRouter
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, WebSocket
 from pydantic import BaseModel
 from utils.wifis import wifi_list, connect
 from drones.connection import drones, add_drones
-from schemas import DroneIP, GoTo
+from schemas import DroneIp, GoTo
 from drones import functions
 
 
@@ -15,18 +17,12 @@ def list_wifis():
     return wifi_list()
 
 
-@router.post('/connect_host/')
-def connect_host(data: dict):
+@router.post('/save_host')
+def save_host(data: dict):
     ssid = data['ssid']
+    print(ssid)
     with open('saved_net.txt', 'w') as f:
-        f.write(ssid)
-    drones_to_connect = data['drones']
-    add_drones(ssid, drones_to_connect)
-    
-    connect(ssid)
-    if not drones:
-        return {'res': 'error', 'drone_ip': None}
-    return {'res': 'success', 'list': list(drones.keys())}
+        f.write(ssid)\
 
 
 @router.post('/connect_saved')
@@ -59,9 +55,6 @@ def disconnect_handler(drone_ip: str = Body()):
     pioneer.disconnect()
 
 
-class DroneIp(BaseModel):
-    drone_ip: str
-
 
 @router.post('/motor_on/')
 def motorTurnOn(drone_ip: DroneIp):
@@ -78,17 +71,33 @@ def takeoff_all():
     functions.takeoff_all()
 
 @router.post('/land/')
-def disconnect_handler(drone_ip: DroneIP):
+def disconnect_handler(drone_ip: DroneIp):
     pioneer = drones[drone_ip.drone_ip]
     pioneer.land()
 
 @router.post('/goto')
-def go_to_point(drone: DroneIP, coords: GoTo):
+def go_to_point(drone: DroneIp, coords: GoTo):
     pioneer = drones[drone.drone_ip]
     pioneer.go_to_local_point(x=coords.x, y=coords.y, z=coords.z)
 
 @router.post('/takeoff')
-def take_off(drone: DroneIP):
+def take_off(drone: DroneIp):
     pioneer = drones[drone.drone_ip]
     pioneer.arm()
     pioneer.takeoff()
+
+
+@router.websocket('/ws')
+async def ws(websocket: WebSocket):
+    await websocket.accept()
+    text_data = await websocket.receive_text()
+    drones_to_connect = json.loads(text_data)['drones']
+
+    with open('saved_net.txt', 'r') as f:
+        ssid = f.read()
+
+    await add_drones(ssid, drones_to_connect, websocket)
+    await websocket.send_text('Подключение к хосту')
+    connect(ssid)
+
+    await websocket.close()

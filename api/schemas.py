@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class DroneIP(BaseModel):
+class DroneIp(BaseModel):
     drone_ip: str
 
 class GoTo(BaseModel):

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { ImConnection } from "react-icons/im";
-import { connect_host } from '../utils/connection';
+import { connect_host, save_host } from '../utils/connection';
 import { MdOutlineClose } from "react-icons/md";
 
 export default ({dronesToConnect, setDronesToConnect, setDrones}) => {
@@ -15,6 +15,7 @@ export default ({dronesToConnect, setDronesToConnect, setDrones}) => {
   }
 
   const connect = async (net) => {
+    await save_host(net)
     const res = await connect_host(net, dronesToConnect)
     if (res) {
       setDrones(res.map(el => ({ip: el})))
