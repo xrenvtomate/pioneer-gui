@@ -1,25 +1,41 @@
 import Button from "./Button"
 import { flyToXYZ, land, takeOff } from "../utils/commands"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function ({currentDrone}) {
   const [coords, setCoords] = useState([0, 0, 0])
-  const info = {
-    ip: currentDrone?.ip,
-    height: '0.4m',
-    x: '0.3m',
-    y: '0.5m',
-    z: '0.6m',
-    battery: '42%',
-  }
+  const [droneInfo, setDroneInfo] = useState(null)
+  const updateState = async () => {
+    if (!currentDrone) return
+    const response = await fetch(`http://localhost:8000/droneInfo?drone_ip=${currentDrone.ip}`)
+    const data = await response.json();
+    console.log(data)
+    setDroneInfo(data)
+  } 
+
+  useEffect(() => {
+    const interval = setInterval(updateState, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  
+  // droneInfo = {
+  //   ip: currentDrone?.ip,
+  //   height: '0.4m',
+  //   x: '0.3m',
+  //   y: '0.5m',
+  //   z: '0.6m',
+  //   battery: '42%',
+  // }
   return <div className="p-4 rounded-xl bg-zinc-700 flex flex-col gap-4 shadow-xl border border-white/10 flex-1">
     {currentDrone ? (
       <>
-        <p className="text-xl">ip: {info.ip}</p>
+        <p className="text-xl">ip: {droneInfo.ip}</p>
         <div>
-          <p>Высота: {info.height}</p>
-          <p>Заряд аккумулятора: {info.battery}</p>
-          <p>x: {info.x} y: {info.y} z: {info.z}</p>
+          <p>Высота: {droneInfo.height}</p>
+          <p>Заряд аккумулятора: {droneInfo.battery}</p>
+          <p>x: {droneInfo.x} y: {droneInfo.y} z: {droneInfo.z}</p>
         </div>
         <div className="flex justify-between">
           <Button onClick={()=>(takeOff(currentDrone.ip))}>Взлет</Button>

@@ -44,11 +44,6 @@ def get_coordinates():
 
 
 
-@router.get('/get_state/')
-def get_state(ip: str):
-    return functions.get_drone_state(ip)
-
-
 @router.post('/disconnect/')
 def disconnect_handler(drone_ip: str = Body()):
     pioneer = drones[drone_ip]
@@ -101,3 +96,8 @@ async def ws(websocket: WebSocket):
     connect(ssid)
 
     await websocket.close()
+
+
+@router.get('/info')
+async def get_info(drone_ip):
+    return functions.get_drone_state(drone_ip)
