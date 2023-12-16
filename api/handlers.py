@@ -99,5 +99,10 @@ async def ws(websocket: WebSocket):
 
 
 @router.get('/info')
-async def get_info(drone_ip):
+async def get_info(drone_ip: str):
     return functions.get_drone_state(drone_ip)
+
+
+@router.get('/coordinates')
+async def get_coordinates():
+    return functions.get_coordinates(drones)

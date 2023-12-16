@@ -12,17 +12,12 @@ def motor_off(pioneer):
     pioneer.disarm()
 
 i = 0
-x = y = 0 
 
 
 
-def get_coordinates():
-    global x, y
-    x += 10
-    y += 20
-    x %= 300
-    y %= 300
-    return {'x': x, 'y': y}
+def get_coordinates(drones):
+    return [{'y': p.get_local_position_lps()[1], 'x': p.get_local_position_lps(get_last_received=True)[0]} for p in drones]
+
 
 def get_drone_state(ip):
     p = drones[ip]

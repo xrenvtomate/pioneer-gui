@@ -2,22 +2,8 @@ import Button from "./Button"
 import { flyToXYZ, land, takeOff } from "../utils/commands"
 import { useEffect, useState } from "react"
 
-export default function ({currentDrone}) {
+export default function ({currentDrone, droneInfo}) {
   const [coords, setCoords] = useState([0, 0, 0])
-  const [droneInfo, setDroneInfo] = useState(null)
-  const updateState = async () => {
-    if (!currentDrone) return
-    const response = await fetch(`http://localhost:8000/droneInfo?drone_ip=${currentDrone.ip}`)
-    const data = await response.json();
-    console.log(data)
-    setDroneInfo(data)
-  } 
-
-  useEffect(() => {
-    const interval = setInterval(updateState, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   
   // droneInfo = {
