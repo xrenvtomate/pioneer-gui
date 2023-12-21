@@ -13,34 +13,26 @@ export const save_host = async (ssid) => {
 }
 
 
-export const connect_host = async (dronesToConnect) => {
+export const connect_host = (dronesToConnect, setDrones, setDronesToConnect) => {
   const ws = new WebSocket("ws://localhost:8000/ws");
-  const id = toast.info('Подключение к серверу', { autoClose: false, isLoading: true })
+  const id = toast.info('Подключение к хосту', { autoClose: false, isLoading: true })
   const data = { drones: dronesToConnect };
   ws.onopen = () => {
     ws.send(JSON.stringify(data));
   };
   ws.onmessage = (event) => {
+    try {
+      let data = JSON.parse(event.data);
+      if (Array.isArray(data)) {
+        console.log(data)
+        setDronesToConnect([])
+        setDrones(data.map(el => ({ip: el})))
+      }
+    } catch (error) { }
     toast.update(id, { render: event.data, type: "info", isLoading: true, autoClose: false })
   }
   ws.onclose = () => {
     toast.update(id, { isLoading: false, autoClose: 3000 })
   }
-  // const data = { ssid: ssid, drones: dronesToConnect };
-  // const response = await fetch("http://localhost:8000/connect_host", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // });
-  // const res = await response.json()
-  // if (res.res == "error") {
-  //   toast.error('Не получилось подключиться')
-  //   return null
-  // }
-  // else {
-  //   toast.success(`Подключено к ${ssid}`)
-  //   return res.list
-  // }
+
 }

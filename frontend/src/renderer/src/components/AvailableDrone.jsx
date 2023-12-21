@@ -5,6 +5,7 @@ import { useState } from "react"
 export default ({drone, setDronesToConnect}) => {
   const [status, setStatus] = useState('')
   const connect = () => {
+    if (status != '') return
     setStatus('added')
     setDronesToConnect(drones => [...drones, drone])
   }

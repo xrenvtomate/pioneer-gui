@@ -34,7 +34,7 @@ export default function({drones, dronesToConnect, setDronesToConnect, currentDro
     }
     <p className="text-lg mb-2 mt-4">Доступные для подключения</p>
     <div className="flex justify-center">
-      <IoMdRefresh onClick={fetchDrones} className="cursor-pointer"/>
+      <IoMdRefresh onClick={fetchDrones} className="cursor-pointer mb-1"/>
     </div>
     <div className="flex flex-col gap-1">
       {availableDrones.map(drone => (

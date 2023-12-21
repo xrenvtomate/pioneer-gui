@@ -69,17 +69,17 @@ def get_password(ssid):
 
 
 async def connect_drone_to_wifi(drone_ssid, ssid, websocket):
-    print('Trying to connect to drone network')
+    print('Trying to connect to the drone network')
     # create_profile(drone_ssid, '12345678')
-    await websocket.send(f'Начинается подключение к дрону')
+    await websocket.send_text(f'Начинается подключение к дрону')
 
     connect(drone_ssid)
     password = get_password(ssid)
-    for i in range(1, 4):
-        await websocket.send(f'Попытка {i} подключения к дрону')
+    for i in range(1, 6):
+        await websocket.send_text(f'Попытка {i} подключения к дрону')
         try:
             response = requests.get(f'http://192.168.4.1/control?function=wifi&command=connect&ssid={ssid.replace(" ", "%20")}&password={password}').json()
-            if not response['wifi_sta_connected'] or response['wifi_sta_ip'] == ['0', '0', '0', '0']:
+            if not response['wifi_sta_connected'] or response['wifi_sta_ip'] == [0, 0, 0, 0]:
                 continue
             print('request successfully sent')
             break
@@ -90,8 +90,5 @@ async def connect_drone_to_wifi(drone_ssid, ssid, websocket):
             print('\n')
     else:
         return False
-    print(response)
-    if not response['wifi_sta_connected']:
-        print('unknown error from the drone')
-        return False
+    print(response['wifi_sta_ip'])
     return '.'.join(map(str, response['wifi_sta_ip']))

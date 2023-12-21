@@ -20,7 +20,6 @@ def list_wifis():
 @router.post('/save_host')
 def save_host(data: dict):
     ssid = data['ssid']
-    print(ssid)
     with open('saved_net.txt', 'w') as f:
         f.write(ssid)\
 
@@ -53,12 +52,10 @@ def disconnect_handler(drone_ip: str = Body()):
 
 @router.post('/motor_on/')
 def motorTurnOn(drone_ip: DroneIp):
-    print(drone_ip)
     functions.motor_on(drones[drone_ip.drone_ip])
 
 @router.post('/motor_off/')
 def motorTurnOn(drone_ip: DroneIp):
-    print(drone_ip)
     functions.motor_off(drones[drone_ip.drone_ip])
 
 @router.post('/takeoff_all/')
@@ -73,7 +70,7 @@ def disconnect_handler(drone_ip: DroneIp):
 @router.post('/goto')
 def go_to_point(drone: DroneIp, coords: GoTo):
     pioneer = drones[drone.drone_ip]
-    pioneer.go_to_local_point(x=coords.x, y=coords.y, z=coords.z)
+    pioneer.go_to_local_point(x=coords.x, y=coords.y, z=coords.z, yaw=0)
 
 @router.post('/takeoff')
 def take_off(drone: DroneIp):
@@ -85,6 +82,7 @@ def take_off(drone: DroneIp):
 @router.websocket('/ws')
 async def ws(websocket: WebSocket):
     await websocket.accept()
+
     text_data = await websocket.receive_text()
     drones_to_connect = json.loads(text_data)['drones']
 
@@ -94,7 +92,8 @@ async def ws(websocket: WebSocket):
     await add_drones(ssid, drones_to_connect, websocket)
     await websocket.send_text('Подключение к хосту')
     connect(ssid)
-
+    # print(list(drones.keys()))
+    await websocket.send_json(list(drones.keys()))
     await websocket.close()
 
 

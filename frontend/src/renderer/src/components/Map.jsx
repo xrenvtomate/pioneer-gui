@@ -2,16 +2,17 @@ import { useEffect, useState } from "react"
 
 export default function Map({drones}) {
   const [coordinates, setCoordinates] = useState([
-    { x: 10, y: 10 },
-    { x: 20, y: 52 },
+    // { x: 10, y: 10 },
+    // { x: 20, y: 52 },
   ]);
 
 
   useEffect(() => {
     const interval = setInterval(async () => {
+      if (!drones.length) return
       const response = await fetch(`http://localhost:8000/coordinates`)
       const data = await response.json();
-      // setCoordinates(data)
+      setCoordinates(data)
     }, 1000); 
 
     return () => clearInterval(interval);
@@ -24,7 +25,7 @@ export default function Map({drones}) {
         <line x1="120" y1="0" x2="120" y2="240" stroke="#64748b" />
 
         {coordinates.map((coord, index) => (
-          <circle key={index} cx={coord.x + 120} cy={coord.y + 120} r="5" fill="white" />
+          <circle key={index} cx={coord.x*20 + 120} cy={coord.y*20 + 120} r="5" fill="white" />
         ))}
       </svg>
     </div>

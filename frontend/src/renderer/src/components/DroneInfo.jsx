@@ -15,9 +15,9 @@ export default function ({currentDrone, droneInfo}) {
   //   battery: '42%',
   // }
   return <div className="p-4 rounded-xl bg-zinc-700 flex flex-col gap-4 shadow-xl border border-white/10 flex-1">
-    {currentDrone ? (
+    {currentDrone && droneInfo ? (
       <>
-        <p className="text-xl">ip: {droneInfo.ip}</p>
+        <p className="text-xl">ip: {currentDrone.ip}</p>
         <div>
           <p>Высота: {droneInfo.height}</p>
           <p>Заряд аккумулятора: {droneInfo.battery}</p>
