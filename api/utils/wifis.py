@@ -70,7 +70,7 @@ def get_password(ssid):
 
 async def connect_drone_to_wifi(drone_ssid, ssid, websocket):
     print('Trying to connect to the drone network')
-    # create_profile(drone_ssid, '12345678')
+    create_profile(drone_ssid, '12345678')
     await websocket.send_text(f'Начинается подключение к дрону')
 
     connect(drone_ssid)

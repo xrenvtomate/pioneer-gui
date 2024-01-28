@@ -4,6 +4,6 @@ class DroneIp(BaseModel):
     drone_ip: str
 
 class GoTo(BaseModel):
-    x: int
-    y: int
-    z: int
+    x: float
+    y: float
+    z: float

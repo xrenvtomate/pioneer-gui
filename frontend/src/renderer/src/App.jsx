@@ -20,10 +20,8 @@ function App() {
   useAutoSelectDrone(drones, currentDrone, setCurrentDrone)
 
   // useEffect(() => setDrones([
-  //   {ip: '22.123.123.123'},
-  //   {ip: '123.64.123.123'},
-  //   {ip: '123.123.34.123'},
-  //   {ip: '123.98.123.123'},
+  //   {ip: '192.168.204.192'},
+  //   {ip: '192.168.204.152'},
   // ]), [])
   useEffect(() => {
     const interval = setInterval(() => updateDroneInfo(currentDrone, setDroneInfo), 2000);

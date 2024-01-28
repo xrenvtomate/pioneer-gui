@@ -26,9 +26,12 @@ export const connect_host = (dronesToConnect, setDrones, setDronesToConnect) => 
       if (Array.isArray(data)) {
         console.log(data)
         setDronesToConnect([])
-        setDrones(data.map(el => ({ip: el})))
+        setDrones(Array.from(data, el => ({ip: el})))
+        console.log(data)
       }
-    } catch (error) { }
+    } catch (error) {
+      console.log(error)
+    }
     toast.update(id, { render: event.data, type: "info", isLoading: true, autoClose: false })
   }
   ws.onclose = () => {

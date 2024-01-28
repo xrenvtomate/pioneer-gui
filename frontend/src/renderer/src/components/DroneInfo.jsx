@@ -6,22 +6,14 @@ export default function ({currentDrone, droneInfo}) {
   const [coords, setCoords] = useState([0, 0, 0])
 
   
-  // droneInfo = {
-  //   ip: currentDrone?.ip,
-  //   height: '0.4m',
-  //   x: '0.3m',
-  //   y: '0.5m',
-  //   z: '0.6m',
-  //   battery: '42%',
-  // }
   return <div className="p-4 rounded-xl bg-zinc-700 flex flex-col gap-4 shadow-xl border border-white/10 flex-1">
     {currentDrone && droneInfo ? (
       <>
         <p className="text-xl">ip: {currentDrone.ip}</p>
         <div>
-          <p>Высота: {droneInfo.height}</p>
+          <p>Высота: {droneInfo.z}</p>
           <p>Заряд аккумулятора: {droneInfo.battery}</p>
-          <p>x: {droneInfo.x} y: {droneInfo.y} z: {droneInfo.z}</p>
+          <p>x: {droneInfo.x} y: {droneInfo.y}</p>
         </div>
         <div className="flex justify-between">
           <Button onClick={()=>(takeOff(currentDrone.ip))}>Взлет</Button>

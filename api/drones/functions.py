@@ -16,7 +16,9 @@ i = 0
 
 
 def get_coordinates(drones):
-    return [{'y': p.get_local_position_lps()[1], 'x': p.get_local_position_lps(get_last_received=True)[0]} for p in drones.values()]
+    poses = [p.get_local_position_lps() for p in drones.values()]
+
+    return [{'y': pos[1] if pos else "Нету данных", 'x': pos[0] if pos else "Нету данных"} for pos in poses]
 
 
 def get_drone_state(ip):

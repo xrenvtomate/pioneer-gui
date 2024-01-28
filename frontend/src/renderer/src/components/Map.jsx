@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react"
 
 export default function Map({drones}) {
-  const [coordinates, setCoordinates] = useState([
-    // { x: 10, y: 10 },
-    // { x: 20, y: 52 },
-  ]);
+  const [coordinates, setCoordinates] = useState([]);
 
 
   useEffect(() => {

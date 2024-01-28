@@ -85,6 +85,7 @@ async def ws(websocket: WebSocket):
 
     text_data = await websocket.receive_text()
     drones_to_connect = json.loads(text_data)['drones']
+    print(drones_to_connect)
 
     with open('saved_net.txt', 'r') as f:
         ssid = f.read()
@@ -92,7 +93,7 @@ async def ws(websocket: WebSocket):
     await add_drones(ssid, drones_to_connect, websocket)
     await websocket.send_text('Подключение к хосту')
     connect(ssid)
-    # print(list(drones.keys()))
+    print(list(drones.keys()))
     await websocket.send_json(list(drones.keys()))
     await websocket.close()
 

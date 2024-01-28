@@ -1,6 +1,6 @@
 export function takeOffAll() {
   fetch(
-    'http://localhost:8000/takeoff_all/', {
+    'http://localhost:8000/takeoff_all', {
       method: 'POST',
     }
   )
@@ -17,13 +17,13 @@ export function flyToXYZ(drone, x, y, z) {
       drone: {
         drone_ip: drone
       }, 
-      coords: {x, y, z}
+      coords: {x: Number(x), y: Number(y), z: Number(z)}
     })
   })
 }
 
 export function takeOff(drone) {
-  fetch('http://localhost:8000/takeoff/', {
+  fetch('http://localhost:8000/takeoff', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",

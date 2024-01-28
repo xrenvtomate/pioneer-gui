@@ -16,11 +16,7 @@ export default ({dronesToConnect, setDronesToConnect, setDrones}) => {
 
   const connect = async (net) => {
     await save_host(net)
-    const res = await connect_host(dronesToConnect)
-    if (res) {
-      setDrones(res.map(el => ({ip: el})))
-      setDronesToConnect([])
-    }
+    await connect_host(dronesToConnect, setDrones, setDronesToConnect)
   }
   
   return <Dialog.Root open={open} onOpenChange={setOpen}>
