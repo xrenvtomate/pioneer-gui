@@ -1,18 +1,18 @@
 from .connection import drones
 
+
 def motor_on(pioneer):
     pioneer.arm()
+
 
 def takeoff_all():
     for drone in drones.values():
         drone.arm()
         drone.takeoff()
 
+
 def motor_off(pioneer):
     pioneer.disarm()
-
-i = 0
-
 
 
 def get_coordinates(drones):
@@ -34,6 +34,5 @@ def get_drone_state(ip):
     state['height'] = 123
     state['battery'] = 123
     
-    print(state)
     return state
     
